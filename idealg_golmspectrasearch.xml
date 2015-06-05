@@ -80,7 +80,7 @@ metaMS.runGC           peakspectra.msp    msp
 | NA      | NA           | NA     |
 +---------+--------------+--------+
 
-.. image:: gcms_workflow.png
+.. image:: ./static/images/metabolomics/gcms_workflow.png
 
 ------
 
