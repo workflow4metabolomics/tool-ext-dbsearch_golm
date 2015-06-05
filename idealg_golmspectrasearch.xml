@@ -1,0 +1,133 @@
+<tool id="idealg_golmspectrasearch" name="dbsearch.golm" version="1.0">
+    
+    <requirements>
+        <requirement type="binary">Rscript</requirement>
+    </requirements>
+    
+    <description>Search GCMS spectra from msp files into Golm Metabolome database </description>
+    
+    <command interpreter="Rscript">
+        golm_soap_galaxy.r xfunction golmsearch mspfilevar $imagemsp
+		rivar $rivar 
+		riwindowvar $riwindowvar 
+		columnvar $columnvar
+        maxhitsvar $maxhitsvar
+        
+		
+</command>
+    
+    <inputs>
+        <param name="imagemsp" type="data" format="msp,txt" label="metaMS msp file" help="msp output file from metaMS.runGC function" />
+		<param name="rivar" type="integer" value="1500" label="ri" help="ri of the search spectra (do not change)"/>
+		<param name="riwindowvar" type="integer" value="3000" label="riWindow" help="ri Shiftwindow (do not change)"/>
+		<param name="columnvar" type="text" value="VAR5" label="column" help="column type VAR5 or MD5" />
+        <param name="maxhitsvar" type="text" value="all" label="maxHits" help="maximum number of hits per queried spectra, default=all" />
+	</inputs>
+    
+    <outputs>
+        <data name="GOLM_Result" format="html" from_work_dir="GOLM_Result.html" label="GolmResult.html" />
+        <data name="log" format="txt" from_work_dir="golmsearch.log" label="golmsearch.log.txt" />
+    </outputs>
+    
+    <stdio>
+        <exit_code range="1:" level="fatal" />
+    </stdio>
+    
+    <tests>
+    </tests>
+    
+    <help>
+		
+		
+.. class:: infomark
+
+**Author(s)**  Guitton Yann CNRS:IRISA/LINA for IDEALG project. yann.guitton@irisa.fr
+
+**References** 
+
+
+---------------------------------------------------
+
+===================
+Golm Spectra search
+===================
+
+-----------
+Description
+-----------
+Search Golm Metabolome Database for closest hits http://gmd.mpimp-golm.mpg.de/
+
+
+-----------------
+Workflow position
+-----------------
+
+**Upstream tools**
+
+====================== ================== ======== 
+Name                   output file        format   
+====================== ================== ======== 
+metaMS.runGC           peakspectra.msp    msp
+====================== ================== ======== 
+
+
+
+**Downstream tools**
+
++---------+--------------+--------+
+| Name    | Output file  | Format |
++=========+==============+========+
+| NA      | NA           | NA     |
++---------+--------------+--------+
+
+.. image:: gcms_workflow.png
+
+------
+
+.. class:: infomark 
+
+The output file is an html file. You can continue your analysis on your computer
+
+---------------------------------------------------
+
+-----------
+Input files
+-----------
+
++---------------------------+------------+
+| Parameter : num + label   | Format     |
++===========================+============+
+| 1 : metaMS.runGC          | msp        |
++---------------------------+------------+
+
+
+
+----------
+Parameters
+----------
+
+.. class:: infomark  Please do not change
+
+
+
+------------
+Output files
+------------
+
+An html file with Hits from GOLM Metabolome DB
+	
+
+
+---------------
+Working example
+---------------
+
+not done yet
+
+
+
+
+   </help>
+
+</tool>
+
