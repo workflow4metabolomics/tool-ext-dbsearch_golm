@@ -4,7 +4,7 @@
 #Author Guitton Yann #R SOAP for Golm Metabolome Web Service 2015 Y. Guitton IDEALG
 #For Galaxy usage
 
-golmsearch<-function(mspfilevar,percentvar=1,rivar=1500,riWindowvar=3000, columnvar="VAR5", maxhitsvar="all"){
+golmsearch<-function(mspfilevar,mzresolutionvar,maxionsvar,percentvar=1,rivar=1500,riWindowvar=3000, columnvar="VAR5", maxhitsvar="all"){
     require(metaMS)
     DB<-read.msp(file=mspfilevar)
     ions<-DB
@@ -24,6 +24,8 @@ golmsearch<-function(mspfilevar,percentvar=1,rivar=1500,riWindowvar=3000, column
  cat("Step1")
     for (pcgrp in 1:length(ions)){
         file=file.path(getwd(),paste("GOLMresult_spectra_",ions[[pcgrp]]$Name,".tsv", sep=""))
+        mzResolution=mzresolutionvar
+        maxIons=maxionsvar
         percent=percentvar
         ri=rivar
         riWindow=riWindowvar

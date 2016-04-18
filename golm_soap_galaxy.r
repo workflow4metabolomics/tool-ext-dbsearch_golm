@@ -33,7 +33,7 @@ if (thefunction == "golmsearch") { #only CDF2RData use library
 	# gs<-golmsearch(mspfilevar=listArguments[["imagemsp"]],percentvar=1,rivar=listArguments[["rivar"]],riWindowvar=listArguments[["riwindowvar"]], columnvar=listArguments[["columnvar"]])
     cat(listArguments[["mspfilevar"]])
     print(listArguments[["mspfilevar"]])
-    gs<-golmsearch(mspfilevar=listArguments[["mspfilevar"]])
+    gs<-golmsearch(mspfilevar=listArguments[["mspfilevar"]], mzresolutionvar=listArguments[["mzresolutionvar"]], maxionsvar=listArguments[["maxionsvar"]])
 }
 
 #delete the parameters to avoid the passage to the next tool in .RData image
