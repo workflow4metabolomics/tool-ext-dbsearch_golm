@@ -1,6 +1,7 @@
 #!/usr/local/public/bin/Rscript --vanilla --slave --no-site-file
 # golm_soap_galaxy.r version="20150408"
 #created by Yann GUITTON 
+# fixed by Gabriel Cretin - 2016
 
 #Redirect all stdout to the log file
 log_file=file("golmsearch.log", open = "wt")
