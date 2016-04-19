@@ -1,6 +1,6 @@
 #!/usr/local/public/bin/Rscript --vanilla --slave --no-site-file
-# golm_soap_galaxy.r version="20150408"
-#created by Yann GUITTON 
+# golm_soap_galaxy.r version="20160419"
+#created by Yann GUITTON for IDEALG project 
 # fixed by Gabriel Cretin - 2016
 
 #Redirect all stdout to the log file
