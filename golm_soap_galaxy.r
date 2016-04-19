@@ -1,6 +1,7 @@
 #!/usr/local/public/bin/Rscript --vanilla --slave --no-site-file
 # golm_soap_galaxy.r version="20150408"
 #created by Yann GUITTON 
+# fixed by Gabriel Cretin - 2016
 
 #Redirect all stdout to the log file
 log_file=file("golmsearch.log", open = "wt")
@@ -33,7 +34,7 @@ if (thefunction == "golmsearch") { #only CDF2RData use library
 	# gs<-golmsearch(mspfilevar=listArguments[["imagemsp"]],percentvar=1,rivar=listArguments[["rivar"]],riWindowvar=listArguments[["riwindowvar"]], columnvar=listArguments[["columnvar"]])
     cat(listArguments[["mspfilevar"]])
     print(listArguments[["mspfilevar"]])
-    gs<-golmsearch(mspfilevar=listArguments[["mspfilevar"]])
+    gs<-golmsearch(mspfilevar=listArguments[["mspfilevar"]], mzresolutionvar=listArguments[["mzresolutionvar"]], maxionsvar=listArguments[["maxionsvar"]])
 }
 
 #delete the parameters to avoid the passage to the next tool in .RData image

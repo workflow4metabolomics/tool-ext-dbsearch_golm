@@ -4,7 +4,7 @@
 #Author Guitton Yann #R SOAP for Golm Metabolome Web Service 2015 Y. Guitton IDEALG
 #For Galaxy usage
 
-golmsearch<-function(mspfilevar,percentvar=1,rivar=1500,riWindowvar=3000, columnvar="VAR5", maxhitsvar="all"){
+golmsearch<-function(mspfilevar,mzresolutionvar,maxionsvar,percentvar=1,rivar=1500,riWindowvar=3000, columnvar="VAR5", maxhitsvar="all"){
     require(metaMS)
     DB<-read.msp(file=mspfilevar)
     ions<-DB
@@ -24,16 +24,22 @@ golmsearch<-function(mspfilevar,percentvar=1,rivar=1500,riWindowvar=3000, column
  cat("Step1")
     for (pcgrp in 1:length(ions)){
         file=file.path(getwd(),paste("GOLMresult_spectra_",ions[[pcgrp]]$Name,".tsv", sep=""))
+        mzResolution=mzresolutionvar
+        maxIons=maxionsvar
         percent=percentvar
         ri=rivar
         riWindow=riWindowvar
         column=columnvar
-  print("Step2")
+ print("Step2")
  cat("Step2")
-        newpcgroup<-cbind(round(ions[[pcgrp]]$pspectrum[,"mz"],0),round((ions[[pcgrp]]$pspectrum[,"intensity"]*100)/max(ions[[pcgrp]]$pspectrum[,"intensity"]),1))
-        spectrumpcgroup=paste0(as.vector(t(subset(newpcgroup,newpcgroup[,2]>percent))), collapse="%20", sep="")
-        xmlRES<-GET(paste("http://gmd.mpimp-golm.mpg.de/webservices/wsLibrarySearch.asmx/LibrarySearch?ri=",ri,"&riWindow=",riWindow,"&AlkaneRetentionIndexGcColumnComposition=",column,"&spectrum=",spectrumpcgroup), sep="")
-        xmlDOC<-content(xmlRES)
+        newpcgroup<-cbind(round(ions[[pcgrp]]$pspectrum[,"mz"],mzResolution),round((ions[[pcgrp]]$pspectrum[,"intensity"]*100)/max(ions[[pcgrp]]$pspectrum[,"intensity"]),1))
+        if(dim(newpcgroup)[1]>maxIons){
+            newpcgroup<- newpcgroup[order( newpcgroup[,2], decreasing=TRUE),][1:maxIons,] #maxion = ? (20, 50, 100?)
+        }
+        spectrumpcgroup=paste0(as.vector(t(subset(newpcgroup,newpcgroup[,2]>percent))), collapse="%20")
+        xmlRES<-GET(paste("http://gmd.mpimp-golm.mpg.de/webservices/wsLibrarySearch.asmx/LibrarySearch?ri=",ri,"&riWindow=",riWindow,"&AlkaneRetentionIndexGcColumnComposition=",column,"&spectrum=",spectrumpcgroup))
+        print(xmlRES)
+        xmlDOC<-xmlTreeParse(xmlRES)
         xmlROOT<-xmlRoot(xmlDOC)
         a<-xmlToList(xmlDOC)
         if (a[[1]]=="success"){
